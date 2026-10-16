@@ -1950,7 +1950,7 @@ dev.off()
 ### Association between baseline characteristics and carriage
 
 Using log-Binomial models, we will assess the association between baseline 
-characteristics such as age, sex and level of educational attainment with the
+characteristics such as age, sex, BMI and level of educational attainment with the
 likelihood of carriage.
 
 ```{r, GLMmodellingPBVvsControl}
@@ -1964,7 +1964,7 @@ library(logbin)
 fit_logbin <- function(df) {
   # Select and clean data
   df <- df %>%
-    dplyr::select(carriageSPN3, arm, sex, age,SES_group, # participantType, 
+    dplyr::select(carriageSPN3, arm, sex, bmi, age,SES_group, # participantType, 
                   baseline_carriage) %>%
     na.omit() %>%
     mutate(
@@ -1977,7 +1977,7 @@ fit_logbin <- function(df) {
   
   # Fit log-binomial model
   glm_logbin <- try(
-    logbin(carriageSPN3 ~ arm + sex + age + SES_group+ #participantType + 
+    logbin(carriageSPN3 ~ arm + sex + bmi + age + SES_group+ #participantType + 
              baseline_carriage, data = df),
     silent = TRUE
   )
